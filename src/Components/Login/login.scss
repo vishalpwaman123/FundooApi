@@ -1,4 +1,4 @@
-.forgetMainContainer {
+.loginMainContainer {
 	background-color: #fff;
 	border : 1px solid #dadce0;
 	margin : 50px auto;
@@ -8,7 +8,7 @@
 	border-radius: 8px;	
 }
 
-.forgetContainer {
+.loginContainer {
 
 	padding: 30px 40px 36px;
 	display : flex;
@@ -21,7 +21,7 @@
 .buttonContainer {
 	display: flex;
 	flex-direction: row;
-	justify-content: flex-end;
+	justify-content: space-between;
 	padding-top: 30px;
 }
 
@@ -33,7 +33,7 @@
 	padding-top: 20px;
 }
 
-.forgetfundoofont{
+.loginfundoofont{
 	
 	align-items: center;
 	font-size: 30px; 
@@ -41,14 +41,20 @@
 
 }
 
-.forgettitle {
+.logintitle {
 	padding-top: 15px;
-	font-size: 30px;
-	font-weight: 400;
+	font-size: 20px;
+	font-weight: 500;
 }
 
-.forgetSubTitle {
+.loginSubTitle {
+	padding-top: 5px;
 	font-size: 18px;
 	font-weight: 500;
-	opacity: 0.9;
+	opacity: 0.6;
+}
+
+.CreateAccount {
+	font-size: 15px;
+	font-weight: 600;
 }
