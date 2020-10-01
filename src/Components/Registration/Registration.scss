@@ -1,7 +1,7 @@
 .mainContainer{
 	background-color: #fff;
 	border : 1px solid #c3c4c7;
-	margin : 50px auto;
+	margin : 30px auto;
 	align-items: center;
 	height : 500px;
 	max-width : 750px;
@@ -9,7 +9,7 @@
 }
 
 .bodyContainer{
-	padding: 48px 40px;
+	padding: 28px 20px;
 	display : flex;
 /*	flex-grow: 1;*/
 /*	box-sizing: border-box;*/
@@ -19,7 +19,7 @@
 .registrationContainer{
 	flex-basis: 450px;
 	/*margin: 0 -48px;*/
-	padding: 0 48px;
+	padding: 0 25px;
 }
 
 .fundoofont{
@@ -67,7 +67,12 @@
 	flex-direction: row;
 }
 
+.textRow1{
+	font-size: 14px;
+}
+
 .textRow2{
+	font-size: 14px;
 	margin-left: 25px;
 }
 
@@ -77,6 +82,7 @@
 }
 
 .textColumn2{
+	font-size: 14px;
 	padding-top: 20px;
 }
 
@@ -89,7 +95,7 @@
 .button{
 	display: flex;
 	flex-direction: row;
-	padding-top: 20px;
+	padding-top: 10px;
 	justify-content: space-between;
 }
 
@@ -102,3 +108,8 @@
 	padding-left: 10px;
 	opacity: 0.8;
 }
+
+.error{
+    color: red;
+    margin : 0px;
+  }
