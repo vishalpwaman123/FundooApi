@@ -2,6 +2,8 @@ import React from 'react';
 import "./resetpassword.scss";
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import Alert from '@material-ui/lab/Alert';
+import AlertTitle from '@material-ui/lab/AlertTitle';
 
 const validateForm = errors => {
     let valid = true;
@@ -24,16 +26,35 @@ export default class Registration extends React.Component {
                 password : "",
                 passwordConfirm : "",
 
-             }
+             },
+
+             flags : {
+                success : "",
+                failed : "",
+            }
         }
 	}
 
     handleSubmit = event => {
         event.preventDefault();
+        let flags = this.state.flags;
         if (validateForm(this.state.errors)) {
+            
+            flags.failed = "";
+            flags.success = "Success";
+            console.info('Valid Form')
+
+        }else
+        {
+            flags.success = "";
+            flags.failed = "Failed";
+            console.error('Invalid Form')
 
         }
+
+        this.setState( { flags }, ()=> console.log(this.state));
     }
+
 
     handleChange = event => {
         event.preventDefault();
@@ -56,6 +77,7 @@ export default class Registration extends React.Component {
 
 	render() {
         const { errors } = this.state;
+        const { flags } = this.state;
 		return (
 			<div className="resetMainContainer" >
 				<div className="resetContainer" >
@@ -114,11 +136,32 @@ export default class Registration extends React.Component {
                     		<Button
                                 variant="contained"
                                 color="primary"
-                                className="btn">
+                                className="btn"
+                                onClick={this.handleSubmit}>
                                 Reset
                             </Button>
                     	</div>
-                    </div>		
+                    </div>
+
+                    <div className="AlertMessage">
+                        <div className="successAlert">
+                                { flags.success.length > 0 && this.state.password != null && (
+                                    <Alert severity="success">
+                                    <AlertTitle>Success</AlertTitle>
+                                        This is a success alert — <strong>check it out!</strong>
+                                    </Alert>
+                                    )}
+                        </div>
+                        <div className="failedAlert">
+                                { flags.failed.length > 0 && (
+                                    <Alert severity="error">
+                                    <AlertTitle>Error</AlertTitle>
+                                        This is a error alert — <strong>check it out!</strong>
+                                    </Alert>
+                                    )}
+                        </div>
+                    </div>
+
 				</div>
 			</div>	
 			);

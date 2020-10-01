@@ -2,8 +2,10 @@ import React from 'react';
 import "./login.scss";
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import Alert from '@material-ui/lab/Alert';
+import AlertTitle from '@material-ui/lab/AlertTitle';
 
-const validEmailRegex = RegExp(/^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i);
+const validEmailRegex = RegExp(/^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+.)+[^<>()[\].,;:\s@"]{2,})$/i);
 
 const validateForm = errors => {
     let valid = true;
@@ -23,16 +25,34 @@ export default class Registration extends React.Component {
              errors : {
                 email : "",
                 password : "",
-             }
+             },
+
+             flags : {
+                success : "",
+                failed : "",
+            }
         }
 	}
 
     handleSubmit = event => {
         event.preventDefault();
+        let flags = this.state.flags;
         if (validateForm(this.state.errors)) {
+            
+            flags.failed = "";
+            flags.success = "Success";
+            console.info('Valid Form')
 
+        }else
+        {
+            flags.success = "";
+            flags.failed = "Failed";
+            console.error('Invalid Form')
         }
+
+        this.setState( { flags }, ()=> console.log(this.state));
     }
+
 
     handleChange = event => {
         event.preventDefault();
@@ -55,6 +75,7 @@ export default class Registration extends React.Component {
 
 	render() {
         const { errors } = this.state;
+        const { flags } = this.state;
 		return (
 			<div className="loginMainContainer" >
 				<div className="loginContainer" >
@@ -116,11 +137,32 @@ export default class Registration extends React.Component {
                     		<Button
                                 variant="contained"
                                 color="primary"
+                                onClick={this.handleSubmit}
                                 className="btn">
                                 Sign in
                             </Button>
                     	</div>
-                    </div>		
+                    </div>
+
+                    <div className="AlertMessage">
+                        <div className="successAlert">
+                                { flags.success.length > 0 && this.state.email != null && (
+                                    <Alert severity="success">
+                                    <AlertTitle>Success</AlertTitle>
+                                        This is a success alert — <strong>check it out!</strong>
+                                    </Alert>
+                                    )}
+                        </div>
+                        <div className="failedAlert">
+                                { flags.failed.length > 0 && (
+                                    <Alert severity="error">
+                                    <AlertTitle>Error</AlertTitle>
+                                        This is a error alert — <strong>check it out!</strong>
+                                    </Alert>
+                                    )}
+                        </div>
+                    </div>
+
 				</div>
 			</div>	
 			);

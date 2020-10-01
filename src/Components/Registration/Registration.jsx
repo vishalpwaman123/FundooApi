@@ -5,8 +5,12 @@ import logo from "../../Asserts/logoRegister.svg";
 import "./Registration.scss";
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
+//import Snackbar from '@material-ui/core/Snackbar';
+//import Alert from '@material-ui/lab/Alert';
+import Alert from '@material-ui/lab/Alert';
+import AlertTitle from '@material-ui/lab/AlertTitle';
 
-const validEmailRegex = RegExp(/^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i);
+const validEmailRegex = RegExp(/^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+.)+[^<>()[\].,;:\s@"]{2,})$/i);
 
 const validateForm = errors => {
     let valid = true;
@@ -33,14 +37,32 @@ export default class Registration extends React.Component {
                 email: "",
                 password: "",
                 confirmPassword: "",
+            },
+
+            flags : {
+                success : "",
+                failed : "",
             }
 		}
 	}
 
-    handleSubmit = (event) => {
+    handleSubmit = event => {
         event.preventDefault();
+        let flags = this.state.flags;
         if (validateForm(this.state.errors)) {
+            
+            flags.failed = "";
+            flags.success = "Success";
+            console.info('Valid Form')
+
+        }else
+        {
+            flags.success = "";
+            flags.failed = "Failed";
+            console.error('Invalid Form')
         }
+
+        this.setState( { flags }, ()=> console.log(this.state));
     }
 
     handleChange = event => {
@@ -74,6 +96,7 @@ export default class Registration extends React.Component {
 
 	render(){
         const { errors } = this.state;
+        const { flags } = this.state;
 		return(
 			<div className="mainContainer">
                 <div className="bodyContainer">
@@ -185,7 +208,7 @@ export default class Registration extends React.Component {
                                                     </div>
 
                                                     <div className="button2">
-                                                        <Button variant="primary">Register</Button>{' '}
+                                                        <Button variant="primary" onClick={this.handleSubmit}>Register</Button>{' '}
                                                         
                                                     </div>
                                                 </div>
@@ -202,8 +225,27 @@ export default class Registration extends React.Component {
                                 </figcaption>
                             </div>
                         </div>
-                    </div>    
-                </div>    
+                    </div>
+                </div>  
+                <div className="AlertMessage">
+                        <div className="successAlert">
+                                { flags.success.length > 0 && flags.success.length == 0 && (
+                                    <Alert severity="success">
+                                    <AlertTitle>Success</AlertTitle>
+                                        This is a success alert — <strong>check it out!</strong>
+                                    </Alert>
+                                    )}
+                        </div>
+                        <div className="failedAlert">
+                                { flags.failed.length > 0 && (
+                                    <Alert severity="error">
+                                    <AlertTitle>Error</AlertTitle>
+                                        This is a error alert — <strong>check it out!</strong>
+                                    </Alert>
+
+                                    )}
+                        </div>
+                    </div>  
             </div>
 			);
 	}
