@@ -9,6 +9,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 //import Alert from '@material-ui/lab/Alert';
 import Alert from '@material-ui/lab/Alert';
 import AlertTitle from '@material-ui/lab/AlertTitle';
+import userService from '../../Services/userServices';
+
+const User_service = new userService();
 
 const validEmailRegex = RegExp(/^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+.)+[^<>()[\].,;:\s@"]{2,})$/i);
 
@@ -54,6 +57,31 @@ export default class Registration extends React.Component {
             flags.failed = "";
             flags.success = "Success";
             console.info('Valid Form')
+
+            if(this.state.firstName.length === 0 || this.state.lastName.length === 0 || this.state.email.length === 0 || this.state.password.length === 0 || this.state.confirmPassword.length === 0) {
+                return null;
+            }else
+            {
+                const user = {
+                    firstName : this.state.firstName,
+                    lastName :this.state.lastName,
+                    email : this.state.email,
+                    password : this.state.password,
+                    /*confirmPassword : this.state.confirmPassword,*/
+                    service : "Advance",
+                };
+
+                if (this.state.password === this.state.confirmPassword) {
+                    console.log("Calling Api");
+                    User_service.registration(user)
+                    .then(data => {
+                        console.log(data);
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    })
+                }
+            }
 
         }else
         {
@@ -229,7 +257,7 @@ export default class Registration extends React.Component {
                 </div>  
                 <div className="AlertMessage">
                         <div className="successAlert">
-                                { flags.success.length > 0 && flags.success.length == 0 && (
+                                { flags.success.length > 0 && flags.success.length === 0 && (
                                     <Alert severity="success">
                                     <AlertTitle>Success</AlertTitle>
                                         This is a success alert — <strong>check it out!</strong>
