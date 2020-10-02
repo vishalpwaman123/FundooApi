@@ -4,6 +4,9 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Alert from '@material-ui/lab/Alert';
 import AlertTitle from '@material-ui/lab/AlertTitle';
+import userService from '../../Services/userServices';
+
+const User_service = new userService();
 
 const validEmailRegex = RegExp(/^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+.)+[^<>()[\].,;:\s@"]{2,})$/i);
 
@@ -42,6 +45,25 @@ export default class Registration extends React.Component {
             flags.failed = "";
             flags.success = "Success";
             console.info('Valid Form')
+            if (this.state.email == null) {
+                flags.success = "";
+                flags.failed = "Failed";
+                console.error("Invalid Form");
+            }else {
+                const user = {
+                    email : this.state.email,
+                }
+
+                console.log("Calling Api");
+                User_service.forget(user)
+                .then(data => {
+                    console.log(data);
+                })
+                .catch(error => {
+                    console.log(error);
+                })
+            }
+
 
         }else
         {
@@ -117,9 +139,16 @@ export default class Registration extends React.Component {
 					
                     <div className="buttonContainer">
                         
-                        <div className="Lbutton3">
-                            <Button color="primary" href="/resetPassword"><span class="Forgetpassword">Forget password?</span></Button>
+                        <div className="Fbutton1">
+                            <Button
+                                variant="contained"
+                                color="primary"
+                                href = "/login"
+                                className="btn">
+                                Back
+                            </Button>
                         </div>
+                        
 
                     	<div className="Lbutton2">
                     		<Button

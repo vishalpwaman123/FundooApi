@@ -19,4 +19,10 @@ export default class userServices {
 		return axiosService.post(url, data, false);
 	}
 
+	forget(data) {
+
+		let url = configUrl + 'user/reset';
+		return axiosService.post(url, data, false);
+	}
+
 }
