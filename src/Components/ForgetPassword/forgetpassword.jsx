@@ -116,7 +116,11 @@ export default class Registration extends React.Component {
                     </form>
 					
                     <div className="buttonContainer">
-                    
+                        
+                        <div className="Lbutton3">
+                            <Button color="primary" href="/resetPassword"><span class="Forgetpassword">Forget password?</span></Button>
+                        </div>
+
                     	<div className="Lbutton2">
                     		<Button
                                 variant="contained"

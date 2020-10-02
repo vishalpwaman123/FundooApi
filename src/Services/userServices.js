@@ -13,4 +13,10 @@ export default class userServices {
 		return axiosService.post(url, data, false);
 	}
 
+	login(data) {
+		
+		let url = configUrl + 'user/login';
+		return axiosService.post(url, data, false);
+	}
+
 }

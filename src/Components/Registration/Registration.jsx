@@ -58,8 +58,10 @@ export default class Registration extends React.Component {
             flags.success = "Success";
             console.info('Valid Form')
 
-            if(this.state.firstName.length === 0 || this.state.lastName.length === 0 || this.state.email.length === 0 || this.state.password.length === 0 || this.state.confirmPassword.length === 0) {
-                return null;
+            if(this.state.firstName === null || this.state.lastName === null || this.state.email === null || this.state.password === null || this.state.confirmPassword === null) {
+            flags.success = "";
+            flags.failed = "Failed";
+            console.error('Invalid Form')
             }else
             {
                 const user = {
@@ -231,7 +233,7 @@ export default class Registration extends React.Component {
                                             <p className="passwordHint">Use 8 or more characters with a mix of letters, numbers & symbols</p>
                                                 <div className="button">
                                                     <div className="button1">
-                                                        <Button variant="link">Sign in instead</Button>
+                                                        <Button variant="link" href="/login">Sign in instead</Button>
                                                         
                                                     </div>
 
