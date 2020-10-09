@@ -13,7 +13,7 @@ function App() {
         <Route exact path="/" component={ Registration } />
         <Route exact path="/login" component={ login } />
         <Route exact path="/forgetPassword" component={ forgetPassword } />
-        <Route exact path="/resetPassword" component={ ResetPassword } />
+        <Route path="/resetpassword/:token" component={ ResetPassword } />
         <Route exact path="/dashboard" component={ dashboard } />
       </Router>
     </div>

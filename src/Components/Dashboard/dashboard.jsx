@@ -16,6 +16,7 @@ import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined'
 import EmojiObjectsOutlinedIcon from '@material-ui/icons/EmojiObjectsOutlined';
 import TakeNote from './TakeNote'
 import AccountDropDown from './AccountDropDown'
+import GetNote from './GetNote'
 
 export default class dashboard extends React.Component {
 

@@ -23,4 +23,11 @@ export default class noteServices {
           }});
 	}
 
+	getNotes() {
+		let url = configUrl + 'notes/getNotesList';
+		return axiosService.get(url, { headers: {
+            authorization: token
+          }});
+	}
+
 }
