@@ -40,6 +40,16 @@ export default class Registration extends React.Component {
     handleSubmit = event => {
         event.preventDefault();
         let flags = this.state.flags;
+        let errors= this.state.errors;
+
+        if ( this.state.email === null ) {
+            errors.email = "Email Id Requred";
+        }
+
+        if ( this.state.password === null ) {
+            errors.password = "Password Requred";
+        }
+
         if (validateForm(this.state.errors)) {
             
             flags.failed = "";
@@ -59,9 +69,12 @@ export default class Registration extends React.Component {
                 console.log("Calling Api");
                 User_service.login(user)
                 .then(data => {
-                    console.log(data);
+                    localStorage.setItem("token",data.data.id);
+                    console.log(data.data.id);
                 })
                 .catch(error => {
+                    flags.success = "";
+                    flags.failed = "Failed";
                     console.log(error);
                 })
             }
@@ -178,18 +191,18 @@ export default class Registration extends React.Component {
 
                     <div className="AlertMessage">
                         <div className="successAlert">
-                                { flags.success.length > 0 && this.state.email != null && (
+                                { flags.success.length > 0 && flags.failed == null && (
                                     <Alert severity="success">
                                     <AlertTitle>Success</AlertTitle>
-                                        This is a success alert — <strong>check it out!</strong>
+                                        <strong>Congratulation, Login SuccessFull!</strong>
                                     </Alert>
                                     )}
                         </div>
                         <div className="failedAlert">
                                 { flags.failed.length > 0 && (
                                     <Alert severity="error">
-                                    <AlertTitle>Error</AlertTitle>
-                                        This is a error alert — <strong>check it out!</strong>
+                                    <AlertTitle><strong>Login Failed!</strong></AlertTitle>
+                                        
                                     </Alert>
                                     )}
                         </div>

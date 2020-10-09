@@ -36,10 +36,16 @@ export default class Registration extends React.Component {
         }
 	}
     
+    
 
     handleSubmit = event => {
         event.preventDefault();
         let flags = this.state.flags;
+        let errors= this.state.errors;
+        if ( this.state.email === null ) {
+            errors.email = "Email Id Requred";
+        }
+
         if (validateForm(this.state.errors)) {
             
             flags.failed = "";
@@ -158,22 +164,20 @@ export default class Registration extends React.Component {
                                 className="btn">
                                 Next
                             </Button>
-                    	</div>
+                       	</div>
                     </div>	
                     <div className="AlertMessage">
                         <div className="successAlert">
                                 { flags.success.length > 0 &&  (
                                     <Alert severity="success">
-                                    <AlertTitle>Success</AlertTitle>
-                                        This is a success alert — <strong>check it out!</strong>
+                                    <AlertTitle><strong>Successfull</strong></AlertTitle>
                                     </Alert>
                                     )}
                         </div>
                         <div className="failedAlert">
                                 { flags.failed.length > 0 && (
                                     <Alert severity="error">
-                                    <AlertTitle>Error</AlertTitle>
-                                        This is a error alert — <strong>check it out!</strong>
+                                    <AlertTitle><strong>Failed!</strong></AlertTitle>
                                     </Alert>
                                     )}
                         </div>

@@ -1,12 +1,9 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
-//import Button from '@material-ui/core/Button';
 import logo from "../../Asserts/logoRegister.svg";
 import "./Registration.scss";
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
-//import Snackbar from '@material-ui/core/Snackbar';
-//import Alert from '@material-ui/lab/Alert';
 import Alert from '@material-ui/lab/Alert';
 import AlertTitle from '@material-ui/lab/AlertTitle';
 import userService from '../../Services/userServices';
@@ -43,8 +40,12 @@ export default class Registration extends React.Component {
             },
 
             flags : {
-                success : "",
-                failed : "",
+                status : "",
+            },
+
+            Responses : {
+              Success : "",
+              Message : "",  
             }
 		}
 	}
@@ -52,15 +53,34 @@ export default class Registration extends React.Component {
     handleSubmit = event => {
         event.preventDefault();
         let flags = this.state.flags;
+        let errors = this.state.errors;
+        let Responses = this.state.Responses;
+
+        if (this.state.firstName == null) {
+            errors.firstName = "First Name Required";
+        }
+        if (this.state.lastName == null) {
+            errors.lastName = "Last Name Required";
+        }
+        if (this.state.email == null) {
+            errors.email = "Email Id Required";
+        }
+        if (this.state.password == null) {
+            errors.password = "Password Required";
+        }
+        if (this.state.confirmPassword == null) {
+            errors.confirmPassword = "Confirm Password Required";
+        }
+
         if (validateForm(this.state.errors)) {
             
-            flags.failed = "";
-            flags.success = "Success";
+            
+            flags.status = "Success";
             console.info('Valid Form')
 
             if(this.state.firstName === null || this.state.lastName === null || this.state.email === null || this.state.password === null || this.state.confirmPassword === null) {
-            flags.success = "";
-            flags.failed = "Failed";
+            
+            flags.status = "Failed";
             console.error('Invalid Form')
             }else
             {
@@ -69,7 +89,6 @@ export default class Registration extends React.Component {
                     lastName :this.state.lastName,
                     email : this.state.email,
                     password : this.state.password,
-                    /*confirmPassword : this.state.confirmPassword,*/
                     service : "Advance",
                 };
 
@@ -77,7 +96,12 @@ export default class Registration extends React.Component {
                     console.log("Calling Api");
                     User_service.registration(user)
                     .then(data => {
-                        console.log(data);
+                        console.log("Login Data :", data);
+                        const object = data.data;
+                        console.log(object.success);
+                        console.log(object.message);
+                        /*Responses.Message = object.message;*/
+
                     })
                     .catch(error => {
                         console.log(error);
@@ -87,8 +111,8 @@ export default class Registration extends React.Component {
 
         }else
         {
-            flags.success = "";
-            flags.failed = "Failed";
+            
+            flags.status = "Failed";
             console.error('Invalid Form')
         }
 
@@ -102,10 +126,10 @@ export default class Registration extends React.Component {
 
         switch (name) {
             case "firstName":
-                errors.firstName = value.length < 3 ? "First Name is not valid" : "" ;
+                errors.firstName = value.length <= 3 ? "First Name is not valid" : "" ;
                 break;
             case "lastName":
-                errors.lastName = value.length < 3 ? "Last Name is not valid" : "" ;
+                errors.lastName = value.length <= 3 ? "Last Name is not valid" : "" ;
                 break;
             case "email":
                 errors.email = validEmailRegex.test(value) ? "" : "Email Id not valid" ;
@@ -127,6 +151,7 @@ export default class Registration extends React.Component {
 	render(){
         const { errors } = this.state;
         const { flags } = this.state;
+        const { Responses } = this.state;
 		return(
 			<div className="mainContainer">
                 <div className="bodyContainer">
@@ -259,18 +284,18 @@ export default class Registration extends React.Component {
                 </div>  
                 <div className="AlertMessage">
                         <div className="successAlert">
-                                { flags.success.length > 0 && flags.success.length === 0 && (
+                                { flags.status === "Success" && (
                                     <Alert severity="success">
-                                    <AlertTitle>Success</AlertTitle>
-                                        This is a success alert — <strong>check it out!</strong>
+                                    <AlertTitle>{Responses.Success}</AlertTitle>
+                                        <strong></strong>
                                     </Alert>
                                     )}
                         </div>
                         <div className="failedAlert">
-                                { flags.failed.length > 0 && (
+                                { flags.status === "Failed" && (
                                     <Alert severity="error">
                                     <AlertTitle>Error</AlertTitle>
-                                        This is a error alert — <strong>check it out!</strong>
+                                        <strong></strong>
                                     </Alert>
 
                                     )}
