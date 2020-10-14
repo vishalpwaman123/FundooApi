@@ -54,7 +54,6 @@ export default class Registration extends React.Component {
         event.preventDefault();
         let flags = this.state.flags;
         let errors = this.state.errors;
-        let Responses = this.state.Responses;
 
         if (this.state.firstName == null) {
             errors.firstName = "First Name Required";

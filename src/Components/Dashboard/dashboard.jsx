@@ -15,8 +15,8 @@ import ArchiveOutlinedIcon from '@material-ui/icons/ArchiveOutlined';
 import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
 import EmojiObjectsOutlinedIcon from '@material-ui/icons/EmojiObjectsOutlined';
 import TakeNote from './TakeNote'
-import AccountDropDown from './AccountDropDown'
 import GetNote from './GetNote'
+import Logout from './Logout'
 
 export default class dashboard extends React.Component {
 
@@ -89,10 +89,11 @@ export default class dashboard extends React.Component {
                 <IconButton onClick={this.handleAccountDrop} edge="start" color="inherit" aria-label="menu">
                   <AccountCircleIcon fontSize="large" />
                 </IconButton>
-
+                <Logout className="logout" status={this.state.Account} />
               </div>
             </Navbar>
           </div>
+
           <div className="innersideContainer">
             <div className="MainNavContainer">
               <div className={this.state.open ? "sideNavBar1" : "sideNavBar2"}>
@@ -133,21 +134,11 @@ export default class dashboard extends React.Component {
             <div>
               <div className={this.props.opens ? "MidContainer1" : "MidContainer2"}>
                 <TakeNote opens={this.state.open} />
-                <GetNote />
+                <GetNote class="NotesBox" />
               </div>
             </div>
           </div>
           <div>
-            { this.state.Account ?
-            <div class="AccountInfo">
-              <AccountDropDown Accounts={this.state.Account}/>
-            </div>
-            :
-            <div>
-                
-            </div>
-            }
-          
           </div>
         </div>
       </div>

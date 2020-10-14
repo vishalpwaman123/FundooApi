@@ -1,0 +1,27 @@
+.NoteLayout {
+    margin: 10px;
+    width: 250px;
+    border-radius: 10px;
+    height:150px;
+}
+
+.Notedisplay {
+margin-top: 20px;
+display: flex;
+flex-wrap: wrap;
+}
+
+.CartTitle {
+    font-size: 20px;
+}
+
+.CartDescription{
+    margin-bottom: 15px;
+}
+
+.NoteIcon{
+    margin-left: 6px;
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+    padding-left: 4px;
+}

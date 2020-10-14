@@ -18,16 +18,31 @@ export default class noteServices {
         console.log("token :", token);
 		let url = configUrl + 'notes/addNotes';
 		//axiosService.post
-		return axiosService.post(url, data, { headers: {
-            authorization: token
+		return axiosService.post(url, data, true , { headers: {
+            Authorization: token
           }});
 	}
 
 	getNotes() {
 		let url = configUrl + 'notes/getNotesList';
 		return axiosService.get(url, { headers: {
-            authorization: token
+            Authorization: token
           }});
+	}
+
+	NoteUpdate(data) {
+		let url = configUrl + 'notes/updateNotes';
+		return axiosService.post(url, data, true, { headers: {
+            Authorization: token
+          }} )
+	}
+
+	DeleteNotes(data) {
+		let url = configUrl + 'notes/trashNotes';
+		console.log(url);
+		return axiosService.post(url, data, true, { headers: {
+            Authorization: token
+          }} )
 	}
 
 }

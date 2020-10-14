@@ -6,7 +6,10 @@ import Alert from '@material-ui/lab/Alert';
 import AlertTitle from '@material-ui/lab/AlertTitle';
 import userService from '../../Services/userServices';
 
+
 const User_service = new userService();
+
+
 
 const validEmailRegex = RegExp(/^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+.)+[^<>()[\].,;:\s@"]{2,})$/i);
 
@@ -17,6 +20,8 @@ const validateForm = errors => {
 };
 
 export default class Registration extends React.Component {
+
+
 
 	constructor(props) {
 		super(props);
@@ -70,7 +75,11 @@ export default class Registration extends React.Component {
                 User_service.login(user)
                 .then(data => {
                     localStorage.setItem("token",data.data.id);
-                    console.log(data.data.id);
+                    
+                    if(data.status === 200) {
+                        console.log(data.data.id);
+                        this.props.history.push("/dashboard");
+                    }
                 })
                 .catch(error => {
                     flags.success = "";

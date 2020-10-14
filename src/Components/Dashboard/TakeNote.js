@@ -7,16 +7,10 @@ import IconButton from '@material-ui/core/IconButton';
 import ImageOutlinedIcon from '@material-ui/icons/ImageOutlined';
 import BrushOutlinedIcon from '@material-ui/icons/BrushOutlined';
 import CheckBoxOutlinedIcon from '@material-ui/icons/CheckBoxOutlined';
-import AddAlertOutlinedIcon from '@material-ui/icons/AddAlertOutlined';
-import PersonAddOutlinedIcon from '@material-ui/icons/PersonAddOutlined';
-import ColorLensOutlinedIcon from '@material-ui/icons/ColorLensOutlined';
-import ArchiveOutlinedIcon from '@material-ui/icons/ArchiveOutlined';
-import MoreVertOutlinedIcon from '@material-ui/icons/MoreVertOutlined';
 import Button from 'react-bootstrap/Button'
 import noteService from '../../Services/noteServices';
 import Form from 'react-bootstrap/Form'
-//import ToastMessage from './ToastMessage'
-//import Createcard from './CreateCard'
+import Icon from './Icons'
 
 const note_service = new noteService();
 
@@ -49,7 +43,6 @@ export default class TakeNote extends Component {
         event.preventDefault();
 
         if (this.state.title === null) {
-            //this.state.toastAlert = false;
             console.log("Please Enter Title");
             this.state.toastMessage = "Please Enter Title"
         } else {
@@ -140,34 +133,7 @@ export default class TakeNote extends Component {
                                             </div>
                                             <div className="manipulationButton">
                                                 <div className="Icon">
-                                                    <IconButton edge="start" color="inherit" aria-label="menu">
-                                                        <AddAlertOutlinedIcon fontSize="small" />
-                                                    </IconButton>
-                                                </div>
-                                                <div className="Icon">
-                                                    <IconButton edge="start" color="inherit" aria-label="menu">
-                                                        <PersonAddOutlinedIcon fontSize="small" />
-                                                    </IconButton>
-                                                </div>
-                                                <div className="Icon">
-                                                    <IconButton edge="start" color="inherit" aria-label="menu">
-                                                        <ColorLensOutlinedIcon fontSize="small" />
-                                                    </IconButton>
-                                                </div>
-                                                <div className="Icon">
-                                                    <IconButton edge="start" color="inherit" aria-label="menu">
-                                                        <ImageOutlinedIcon fontSize="small" />
-                                                    </IconButton>
-                                                </div>
-                                                <div className="Icon">
-                                                    <IconButton edge="start" color="inherit" aria-label="menu">
-                                                        <ArchiveOutlinedIcon fontSize="small" />
-                                                    </IconButton>
-                                                </div>
-                                                <div className="Icon">
-                                                    <IconButton edge="start" color="inherit" aria-label="menu">
-                                                        <MoreVertOutlinedIcon fontSize="small" />
-                                                    </IconButton>
+                                                    <Icon status={false}/>
                                                 </div>
                                                 <Button
                                                     variant="white"
