@@ -54,9 +54,11 @@ export default function UpdateNote(props) {
                                             className="InputGroup2"
                                             placeholder="Title"
                                             aria-label="Medium"
+                                            value={props.notes.title}
                                             onChange={(e) => { setTitle(e.target.value) }}
                                             aria-describedby="inputGroup-sizing-sm"
                                         />
+                                        
                                         <div className="ImageOutlinedIcon1">
                                             <IconButton edge="start" color="inherit" aria-label="menu">
                                                 <img src={logo} fontSize="medium" />
@@ -69,9 +71,11 @@ export default function UpdateNote(props) {
                                         className="InputGroup2"
                                         placeholder="note"
                                         aria-label="Medium"
+                                        value={props.notes.description}
                                         onChange={(e) => { setDescription(e.target.value) }}
                                         aria-describedby="inputGroup-sizing-sm"
                                     />
+
                                 </div>
                                 <div className="manipulationButton">
                                     <div className="Icon">

@@ -2,7 +2,7 @@
     margin: 10px;
     width: 250px;
     border-radius: 10px;
-    height:150px;
+    height: fit-content ;
 }
 
 .Notedisplay {
@@ -13,10 +13,11 @@ flex-wrap: wrap;
 
 .CartTitle {
     font-size: 20px;
+    height: 40px;
 }
 
 .CartDescription{
-    margin-bottom: 15px;
+    margin-bottom: 5px;
 }
 
 .NoteIcon{

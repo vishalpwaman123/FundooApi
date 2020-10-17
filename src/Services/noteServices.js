@@ -44,5 +44,20 @@ export default class noteServices {
             Authorization: token
           }} )
 	}
+	changeColor(Data) {
+		let url = configUrl + 'notes/changesColorNotes';
+		console.log(url);
+		return axiosService.post(url, Data, true, { headers: {
+            Authorization: token
+          }})
+	}
+
+	ArchiveNotes(Data) {
+		let url = configUrl + 'notes/archiveNotes';
+		console.log(url);
+		return axiosService.post(url, Data, true, { headers: {
+            Authorization: token
+          }})
+	}
 
 }

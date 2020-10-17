@@ -16,7 +16,9 @@ import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined'
 import EmojiObjectsOutlinedIcon from '@material-ui/icons/EmojiObjectsOutlined';
 import TakeNote from './TakeNote'
 import GetNote from './GetNote'
-import Logout from './Logout'
+import Button from 'react-bootstrap/Button'
+import Dropdown from 'react-bootstrap/Dropdown'
+import Form from 'react-bootstrap/Form'
 
 export default class dashboard extends React.Component {
 
@@ -25,6 +27,8 @@ export default class dashboard extends React.Component {
     this.state = {
       Account: false,
       open: true,
+      openTrash: false,
+      openArchive: false,
     };
   }
 
@@ -36,12 +40,25 @@ export default class dashboard extends React.Component {
     this.setState({ open: !this.state.open });
   };
 
+  TrashHandle = () => {
+    this.setState({ openTrash: !this.state.openTrash });
+  }
+
+  ArchiveHandle = () => {
+    this.setState({ openArchive: !this.state.openArchive });
+  }
+
+  SignOut = () => {
+    localStorage.removeItem('token');
+    this.props.history.push("/");
+  }
+
   render() {
     return (
       <div className="DmainContainer">
         <div className="innerContainer">
           <div className="navMainContainer">
-            <Navbar variant="light">
+            <Navbar variant="light" className="NavbarContainer">
               <div className="DehazeIcon">
                 <IconButton
                   edge="start"
@@ -85,12 +102,44 @@ export default class dashboard extends React.Component {
                   </IconButton>
                 </div>
               </div>
-              <div className="AccountCircleIcon">
-                <IconButton onClick={this.handleAccountDrop} edge="start" color="inherit" aria-label="menu">
-                  <AccountCircleIcon fontSize="large" />
-                </IconButton>
-                <Logout className="logout" status={this.state.Account} />
-              </div>
+              <Dropdown >
+                <div className="AccountCircleIcon">
+                  <Dropdown.Toggle
+                    className="DropDownAccount"
+                    variant="light"
+                    id="dropdown-basic">
+                    {/* <IconButton
+                      onClick={this.handleAccountDrop}
+                      edge="start"
+                      color="inherit"
+                      aria-label="menu"> */}
+                    <AccountCircleIcon fontSize="large" />
+                    {/* </IconButton> */}
+                  </Dropdown.Toggle>
+                  {/* <Logout className="logout" status={this.state.Account} /> */}
+
+                  <Dropdown.Menu className="AccountContainer">
+
+                    <Dropdown.Item variant="outline-light" className="AccountSide1">
+                      <AccountCircleIcon fontSize="large" className="InnerAccountIccount" />
+                      <Form.Control className="AccountEmail" plaintext readOnly defaultValue="Vishalpwaman123@gmail.com" />
+                    </Dropdown.Item>
+                    <Dropdown.Divider />
+                    <Dropdown.Item className="AccountSide2">
+                      <Form className="AccountForm">
+                        
+                      </Form>
+                      <Button
+                        className="SignOut"
+                        variant="outline-dark"
+                        onClick={() => {this.SignOut()}}>
+                        SignOut
+                      </Button>
+                    </Dropdown.Item>
+                  </Dropdown.Menu>
+                </div>
+
+              </Dropdown>
             </Navbar>
           </div>
 
@@ -116,14 +165,14 @@ export default class dashboard extends React.Component {
                     </IconButton>
                     <div className="Font">Edit</div>
                   </div>
-                  <div className="fourthNav">
+                  <div className="fourthNav" onClick={() => { this.ArchiveHandle() }}>
                     <IconButton edge="start" color="inherit" aria-label="menu">
                       <ArchiveOutlinedIcon />
                     </IconButton>
                     <div className="Font">Archive</div>
                   </div>
-                  <div className="fifthNav">
-                    <IconButton edge="start" color="inherit" aria-label="menu">
+                  <div className="fifthNav" onClick={() => { this.TrashHandle() }}>
+                    <IconButton edge="start" color="inherit" aria-label="menu" >
                       <DeleteOutlineOutlinedIcon />
                     </IconButton>
                     <div className="Font">Trash</div>
@@ -134,7 +183,8 @@ export default class dashboard extends React.Component {
             <div>
               <div className={this.props.opens ? "MidContainer1" : "MidContainer2"}>
                 <TakeNote opens={this.state.open} />
-                <GetNote class="NotesBox" />
+
+                <GetNote class="NotesBox" status={this.state} />
               </div>
             </div>
           </div>

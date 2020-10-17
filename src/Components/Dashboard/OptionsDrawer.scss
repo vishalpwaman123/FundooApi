@@ -1,3 +1,132 @@
 .Options {
     border: none;
 }
+
+.DropDownMaterial::after {
+ display: none
+}
+
+.DropDownMaterial {
+padding: 0px;
+border : none;
+background-Color: transparent;
+padding-Bottom: 4px;
+}
+
+.IconColor {
+    margin-bottom: 0px;
+}
+
+.DropDownMain{
+    //border : 1px solid #000;
+    height : 140px;
+    width : 140px;
+    padding: 0%;
+    margin-left: 10px ;
+}
+
+.MainColorContainer{
+    margin-left: 0px;
+    display: flex;
+    flex-wrap: wrap;
+    width: 140px;
+    height: 140px;
+    background: #ffff80;
+}
+
+.A1 {
+    margin: 5px;
+    height : 24px;
+    width: 24px;
+    //border : 1px solid #000;
+    border-radius: 15px ;
+    background: #fff;
+}
+
+.A2 {
+    margin: 5px;
+    height : 24px;
+    width: 24px;
+    border-radius: 15px ;
+    background:#ff8080;
+}
+
+.A3 {
+    margin: 5px;
+    height : 24px;
+    width: 24px;
+    border-radius: 15px ;
+    background: #ff80ff;
+}
+
+.A4 {
+    margin: 5px;
+    height : 24px;
+    width: 24px;
+    border-radius: 15px ;
+    background: #3f4bf1;
+}
+
+.A5 {
+    margin: 5px;
+    height : 24px;
+    width: 24px;
+    border-radius: 15px ;
+    background: #8080ff;
+}
+
+.A6 {
+    margin: 5px;
+    height : 24px;
+    width: 24px;
+    border-radius: 15px ;
+    background-color: #80ff80;
+}
+
+.A7 {
+    margin: 5px;
+    height : 24px;
+    width: 24px;
+    border-radius: 15px ;
+    background-color: #ccccb3;
+}
+
+.A8 {
+    margin: 5px;
+    height : 24px;
+    width: 24px;
+    border-radius: 15px ;
+    background-color: #c93a42;
+}
+
+.A9 {
+    margin: 5px;
+    height : 24px;
+    width: 24px;
+    border-radius: 15px ;
+    background-color: #df9f9f;
+}
+
+.A10 {
+    margin: 5px;
+    height : 24px;
+    width: 24px;
+    border-radius: 15px ;
+    background-color: #80ffbf;
+}
+
+.A11 {
+    margin: 5px;
+    height : 24px;
+    width: 24px;
+    border-radius: 15px ;
+    background-color: #8080ff;
+}
+
+.A12 {
+    margin: 5px;
+    height : 24px;
+    width: 24px;
+    border-radius: 15px ;
+    background-color: #f332d9;
+}
