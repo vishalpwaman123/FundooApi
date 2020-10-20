@@ -46,7 +46,6 @@ export default class TakeNote extends Component {
             console.log("Please Enter Title");
             this.state.toastMessage = "Please Enter Title"
         } else {
-            console.log(this.state.title);
             const note = {
                 title: this.state.title,
                 description: this.state.description,
@@ -55,6 +54,7 @@ export default class TakeNote extends Component {
             note_service.CreateNote(note)
                 .then(data => {
                     console.log("Cart Data :", data);
+                    this.props.GetNotes();
                     const object = data.data;
                     console.log(object.success);
                     console.log(object.message);

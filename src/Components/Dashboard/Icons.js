@@ -26,6 +26,7 @@ export default class Icons extends Component {
             open: false,
             anchorEl: null,
         };
+        console.log("Icon Color");
     }
 
     handleClick = event => {
@@ -48,7 +49,8 @@ export default class Icons extends Component {
         }
         note_service.changeColor(Data)
         .then(data=>{
-            console.log(data)
+            console.log("Change Color"+data);
+            this.props.GetNotes();
         }).catch(error=>{
             console.log(error);
         });
@@ -63,10 +65,11 @@ export default class Icons extends Component {
             isArchived: true,
             noteIdList: [this.props.notesId]
         }
-        console.log(Data);
+        console.log("Archived "+Data);
         note_service.ArchiveNotes(Data)
             .then(data => {
                 console.log(data);
+                this.props.GetNotes();
 
             }).catch(error => {
                 console.log(error);
@@ -86,7 +89,8 @@ export default class Icons extends Component {
         console.log(Data);
         note_service.DeleteNotes(Data)
             .then(data => {
-                console.log(data);
+                console.log("Delete "+data);
+                this.props.GetNotes();
 
             }).catch(error => {
                 console.log(error);

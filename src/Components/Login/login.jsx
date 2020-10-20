@@ -6,7 +6,6 @@ import Alert from '@material-ui/lab/Alert';
 import AlertTitle from '@material-ui/lab/AlertTitle';
 import userService from '../../Services/userServices';
 
-
 const User_service = new userService();
 
 
@@ -78,7 +77,8 @@ export default class Registration extends React.Component {
                     
                     if(data.status === 200) {
                         console.log(data.data.id);
-                        this.props.history.push("/dashboard");
+                        this.props.history.push('/dashboard');
+
                     }
                 })
                 .catch(error => {

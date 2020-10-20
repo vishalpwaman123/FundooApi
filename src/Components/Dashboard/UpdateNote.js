@@ -27,7 +27,8 @@ export default function UpdateNote(props) {
         }
 
         note_service.NoteUpdate(data).then(data => {
-            console.log(data);
+            props.GetNotes();
+            console.log("Update Data"+data);
 
         }).catch(error => {
             console.log(error);
@@ -44,7 +45,7 @@ export default function UpdateNote(props) {
                 {/* <Modal.Header closeButton>
                     
                 </Modal.Header> */}
-                <Modal.Body className="show-grid">
+                <Modal.Body className="show-grid"  style={{ backgroundColor: props.notes.color }}>
                     <Container>
                         <form>
                             <div className="Input2">
@@ -54,6 +55,7 @@ export default function UpdateNote(props) {
                                             className="InputGroup2"
                                             placeholder="Title"
                                             aria-label="Medium"
+                                            style={{ backgroundColor: props.notes.color }}
                                             value={props.notes.title}
                                             onChange={(e) => { setTitle(e.target.value) }}
                                             aria-describedby="inputGroup-sizing-sm"
@@ -70,6 +72,7 @@ export default function UpdateNote(props) {
                                     <FormControl
                                         className="InputGroup2"
                                         placeholder="note"
+                                        style={{ backgroundColor: props.notes.color }}
                                         aria-label="Medium"
                                         value={props.notes.description}
                                         onChange={(e) => { setDescription(e.target.value) }}

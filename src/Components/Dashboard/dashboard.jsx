@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react'
 import './dashboard.scss';
 import Navbar from 'react-bootstrap/Navbar'
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -19,6 +19,9 @@ import GetNote from './GetNote'
 import Button from 'react-bootstrap/Button'
 import Dropdown from 'react-bootstrap/Dropdown'
 import Form from 'react-bootstrap/Form'
+import noteService from '../../Services/noteServices';
+
+const note_service = new noteService();
 
 export default class dashboard extends React.Component {
 
@@ -29,7 +32,42 @@ export default class dashboard extends React.Component {
       open: true,
       openTrash: false,
       openArchive: false,
+      SearchTitle: '',
+      notes:[]
     };
+    console.log(this.state.SearchTitle)
+
+  }
+
+  // getNotes = () => {
+  //   useEffect(() => {
+  //   note_service.getNotes().then(response=>{
+  //       console.log(response.data.data.data);
+  //       this.setState({notes:response.data.data.data});
+  //   })
+  //   .catch(error=>{
+  //       console.log(error);
+  //   });
+  // }, []);
+  // }
+
+  getNotes(){
+    note_service.getNotes()
+    .then(response=>{
+        console.log(response.data.data.data);
+        this.setState({notes:response.data.data.data});
+    })
+    .catch(error=>{
+        console.log(error);
+    });
+}
+
+  componentDidMount(){
+    this.getNotes();
+}
+
+  componentDidUpdate(){
+    this.getNotes()
   }
 
   handleAccountDrop = (event) => {
@@ -42,15 +80,26 @@ export default class dashboard extends React.Component {
 
   TrashHandle = () => {
     this.setState({ openTrash: !this.state.openTrash });
+    this.setState({ openArchive: false });
   }
 
   ArchiveHandle = () => {
     this.setState({ openArchive: !this.state.openArchive });
+    this.setState({ openTrash: false });
+  }
+
+  NormalNoteHandle = () => {
+    this.setState({ openArchive: false });
+    this.setState({ openTrash: false });
   }
 
   SignOut = () => {
     localStorage.removeItem('token');
     this.props.history.push("/");
+  }
+
+  ClearSearch = () => {
+    this.setState({ SearchTitle: '' });
   }
 
   render() {
@@ -63,6 +112,7 @@ export default class dashboard extends React.Component {
                 <IconButton
                   edge="start"
                   color="inherit"
+                  value = {this.state.SearchTitle}
                   onClick={this.handleDrawerOpen}
                   aria-label="menu">
                   <DehazeIcon />
@@ -93,11 +143,17 @@ export default class dashboard extends React.Component {
                   <InputBase
                     placeholder="Search"
                     inputProps={{ 'aria-label': 'search' }}
+                    value={this.state.SearchTitle}
+                    onChange={(e) => { this.setState({ SearchTitle: e.target.value }) }}
                     fullWidth
                   />
                 </div>
                 <div className="ClearIcon">
-                  <IconButton edge="start" color="inherit" aria-label="menu">
+                  <IconButton 
+                    edge="start"
+                    color="inherit" 
+                    onClick={() => { this.ClearSearch() }}
+                    aria-label="menu">
                     <ClearIcon />
                   </IconButton>
                 </div>
@@ -108,16 +164,8 @@ export default class dashboard extends React.Component {
                     className="DropDownAccount"
                     variant="light"
                     id="dropdown-basic">
-                    {/* <IconButton
-                      onClick={this.handleAccountDrop}
-                      edge="start"
-                      color="inherit"
-                      aria-label="menu"> */}
                     <AccountCircleIcon fontSize="large" />
-                    {/* </IconButton> */}
                   </Dropdown.Toggle>
-                  {/* <Logout className="logout" status={this.state.Account} /> */}
-
                   <Dropdown.Menu className="AccountContainer">
 
                     <Dropdown.Item variant="outline-light" className="AccountSide1">
@@ -127,12 +175,12 @@ export default class dashboard extends React.Component {
                     <Dropdown.Divider />
                     <Dropdown.Item className="AccountSide2">
                       <Form className="AccountForm">
-                        
+
                       </Form>
                       <Button
                         className="SignOut"
                         variant="outline-dark"
-                        onClick={() => {this.SignOut()}}>
+                        onClick={() => { this.SignOut() }}>
                         SignOut
                       </Button>
                     </Dropdown.Item>
@@ -147,13 +195,13 @@ export default class dashboard extends React.Component {
             <div className="MainNavContainer">
               <div className={this.state.open ? "sideNavBar1" : "sideNavBar2"}>
                 <div className="sidebar-nav">
-                  <div className="firstNav">
+                  <div className="firstNav" onClick={() => { this.NormalNoteHandle() }}>
                     <IconButton edge="start" color="inherit" aria-label="menu">
                       <EmojiObjectsOutlinedIcon />
                     </IconButton>
                     <div className="Font">Notes</div>
                   </div>
-                  <div className="secondNav">
+                  <div className="secondNav" >
                     <IconButton edge="start" color="inherit" aria-label="menu">
                       <NotificationsOutlinedIcon />
                     </IconButton>
@@ -182,9 +230,8 @@ export default class dashboard extends React.Component {
             </div>
             <div>
               <div className={this.props.opens ? "MidContainer1" : "MidContainer2"}>
-                <TakeNote opens={this.state.open} />
-
-                <GetNote class="NotesBox" status={this.state} />
+                <TakeNote opens={this.state.open} GetNotes={()=>{this.getNotes()}}/>
+                <GetNote class="NotesBox" status={this.state} notes={this.state.notes} GetNotes={()=>{this.getNotes()}}/>
               </div>
             </div>
           </div>
